@@ -27,9 +27,9 @@ public class TransMapSample {
         DataStreamSource<Event> stream = env.fromElements(
                 new Event("Mary", "./home", 1000L),
                 new Event("Bob", "./cart", 2000L));
-        SingleOutputStreamOperator<Object> mapStream = stream.map(new MapFunction<Event, Object>() {
+        SingleOutputStreamOperator<String> mapStream = stream.map(new MapFunction<Event, String>() {
             @Override
-            public Object map(Event event) throws Exception {
+            public String map(Event event) throws Exception {
                 return event.user;
             }
         });
