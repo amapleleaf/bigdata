@@ -1,16 +1,12 @@
 package com.flink.sample;
 
+import com.flink.sample.common.ClickSource;
+import com.flink.sample.common.Event;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.apache.flink.streaming.api.functions.source.SourceFunction;
-import org.apache.flink.table.api.EnvironmentSettings;
 import org.apache.flink.table.api.Table;
-import org.apache.flink.table.api.TableEnvironment;
 import org.apache.flink.table.api.TableResult;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
-
-import java.util.Calendar;
-import java.util.Random;
 
 import static org.apache.flink.table.api.Expressions.$;
 
@@ -101,33 +97,7 @@ public class FlinkSQLSample {
         tableEnv.createTemporaryView("eventTable",table);
         Table grouptable = tableEnv.sqlQuery("select user,count(1) from eventTable group by user");
         tableEnv.toDataStream(table).print("table");
-        tableEnv.toChangelogStream(grouptable).print("table");
+        tableEnv.toChangelogStream(grouptable).print("agg");
         env.execute();
-    }
-
-    public static class ClickSource implements SourceFunction<Event> {
-        private boolean running = true;
-
-        @Override
-        public void run(SourceContext<Event> sourceContext) throws Exception {
-            Random random = new Random(); // 在指定的数据集中随机选取数据
-            String[] users = {"Mary", "Alice", "Bob", "Cary"};
-            String[] urls = {"./home", "./cart", "./fav", "./prod?id=1",
-                    "./prod?id=2"};
-            while (running) {
-                sourceContext.collect(new Event(
-                        users[random.nextInt(users.length)],
-                        urls[random.nextInt(urls.length)],
-                        Calendar.getInstance().getTimeInMillis()
-                ));
-                // 隔 1 秒生成一个点击事件，方便观测
-                Thread.sleep(1000);
-            }
-        }
-
-        @Override
-        public void cancel() {
-            running = false;
-        }
     }
 }

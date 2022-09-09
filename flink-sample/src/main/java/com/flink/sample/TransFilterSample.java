@@ -1,6 +1,6 @@
 package com.flink.sample;
 
-import org.apache.commons.lang3.StringUtils;
+import com.flink.sample.common.Event;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;

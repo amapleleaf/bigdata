@@ -1,24 +1,24 @@
-package com.flink.sample;
+package com.flink.sample.common;
 
 import java.sql.Timestamp;
 
-public class Event {
+public class ClickEvent {
     public String user;
     public String url;
-    public Long timestamp;
-    public Event() {
+    public Long ts;
+    public ClickEvent() {
     }
-    public Event(String user, String url, Long timestamp) {
+    public ClickEvent(String user, String url, Long ts) {
         this.user = user;
         this.url = url;
-        this.timestamp = timestamp;
+        this.ts = ts;
     }
     @Override
     public String toString() {
         return "Event{" +
                 "user='" + user + '\'' +
                 ", url='" + url + '\'' +
-                ", timestamp=" + new Timestamp(timestamp) +
+                ", ts=" + new Timestamp(ts) +
                 '}';
     }
 }

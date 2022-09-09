@@ -1,5 +1,6 @@
 package com.flink.sample;
 
+import com.flink.sample.common.Event;
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;

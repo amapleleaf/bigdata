@@ -1,7 +1,7 @@
 package com.flink.sample;
 
+import com.flink.sample.common.Event;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
-import org.apache.flink.streaming.api.datastream.KeyedStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 
 public class TransKeyBySample {
