@@ -10,7 +10,7 @@ import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 
 import static org.apache.flink.table.api.Expressions.$;
 
-public class FlinkSQLSample {
+public class SQLSample {
     public static void main(String[] args) throws Exception {
         //tabletoStream();
         //tabletoTable();
