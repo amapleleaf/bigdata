@@ -5,8 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>flink-sample</artifactId>
+    <artifactId>flink-sql-submit-client</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <properties>
         <flink.version>1.13.0</flink.version>
         <java.version>1.8</java.version>

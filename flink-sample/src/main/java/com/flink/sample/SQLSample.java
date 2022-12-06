@@ -14,7 +14,8 @@ public class SQLSample {
     public static void main(String[] args) throws Exception {
         //tabletoStream();
         //tabletoTable();
-        streamToTable();
+       // streamToTable();
+        streamToNTable();
     }
 
     public static void tabletoStream() throws Exception {
@@ -98,6 +99,24 @@ public class SQLSample {
         Table grouptable = tableEnv.sqlQuery("select user,count(1) from eventTable group by user");
         tableEnv.toDataStream(table).print("table");
         tableEnv.toChangelogStream(grouptable).print("agg");
+        env.execute();
+    }
+
+    public static void streamToNTable() throws Exception{
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+        env.setParallelism(1);
+        DataStreamSource<Event> streamSource = env.addSource(new ClickSource());
+        StreamTableEnvironment tableEnv = StreamTableEnvironment.create(env);
+        Table table = tableEnv.fromDataStream(streamSource, $("user"), $("url"), $("timestamp"));
+        table.printSchema();
+        tableEnv.toChangelogStream(table).print("srctable");
+        tableEnv.createTemporaryView("eventTable",table);
+        Table marytb = tableEnv.sqlQuery("select user,url from eventTable where user='Mary'");
+        tableEnv.toChangelogStream(marytb).print("marytb");
+        Table alicetb = tableEnv.sqlQuery("select user,url from eventTable where user='Alice'");
+        tableEnv.toChangelogStream(alicetb).print("alicetb");
+        Table other = tableEnv.sqlQuery("select user,url from eventTable where user not in ('Alice','Mary')");
+        tableEnv.toChangelogStream(other).print("other");
         env.execute();
     }
 }
