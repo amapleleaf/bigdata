@@ -37,7 +37,7 @@ public class FlinkSqlClientDemo {
             configuration.setString(JobManagerOptions.ADDRESS, "192.168.226.110");
             configuration.setInteger(JobManagerOptions.PORT, 6123);
             configuration.setInteger(RestOptions.PORT, 8081);
-           configuration.setString(ClusterEntrypoint.INTERNAL_CLUSTER_EXECUTION_MODE, ExecutionMode.DETACHED.toString());
+            configuration.setString(ClusterEntrypoint.INTERNAL_CLUSTER_EXECUTION_MODE, ExecutionMode.DETACHED.toString());
             client = new RestClusterClient(configuration, StandaloneClusterId.getInstance());
             int parallelism = 1;
             File jarFile = new File(jarFilePath);
@@ -97,7 +97,7 @@ public class FlinkSqlClientDemo {
                 "'connector.password'='mysql123%^PASS'," +
                 "'connector.write.flush.max-rows'='1'" +
                 ")";
-        String insertSql="insert into UserEvent(username,requrl,reqtime,dealtime) select userName,reqUrl,reqTime,dealTime from KafkaTable";
+        String insertSql="insert into UserEvent(username,requrl,reqtime,dealtime) select username,requrl,reqtime,dealtime from KafkaTable";
         //String insertSql="select * from KafkaTable";
         jsonObject.put("sql",sourceSql+";"+sinkSql+";"+insertSql);
         String jsonStr =  jsonObject.toJSONString();

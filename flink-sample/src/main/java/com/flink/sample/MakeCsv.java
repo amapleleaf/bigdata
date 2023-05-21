@@ -58,7 +58,7 @@ public class MakeCsv {
         properties.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         org.apache.kafka.clients.producer.KafkaProducer<String, String> kafkaProducer = new org.apache.kafka.clients.producer.KafkaProducer<String, String>(properties);
         JSONObject jsonObject;
-        for (int i = 0; i <10; i++) {
+        for (int i = 0; i <100; i++) {
             jsonObject = new JSONObject();
             jsonObject.put("username",users[random.nextInt(users.length)]);
             jsonObject.put("requrl",urls[random.nextInt(urls.length)]);
@@ -66,7 +66,7 @@ public class MakeCsv {
             kafkaProducer.send(new ProducerRecord<String, String>("test_topic", jsonObject.toJSONString()));
             System.out.println(jsonObject.toJSONString());
             try {
-                Thread.sleep(random.nextInt(100)+400);
+                Thread.sleep(random.nextInt(200)+400);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
